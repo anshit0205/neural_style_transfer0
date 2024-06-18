@@ -1,0 +1,10 @@
+tensorflow
+tensorflow-gpu
+tensorflow-gan
+tensorflow-addons
+keras
+numpy
+matplotlib
+scikit-image
+lpips
+torch
