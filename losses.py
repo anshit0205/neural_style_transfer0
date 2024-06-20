@@ -15,7 +15,7 @@ def total_variation_loss(x):
     return tf.reduce_mean(a + b)
 
 content_weight = 1
-style_weights = [0.375, 0.365, 0.35, 0.33, 0.32]
+style_weights = [0.075, 0.065, 0.085, 0.063, 0.092]
 total_variation_weight = 1e-6  # You can adjust this weight
 
 @tf.function
@@ -39,7 +39,7 @@ def get_loss_and_grads_wrapper(x_vec):
     return total_loss.numpy().astype(np.float64), grads.numpy().flatten().astype(np.float64), content_loss.numpy().astype(np.float64), style_loss.numpy().astype(np.float64), tv_loss.numpy().astype(np.float64)
 
 def minimize_with_lbfgs(fn, epochs, batch_shape):
-    x = load_img_and_preprocess(content_img_path)  # Start from the content image instead of random noise
+    x = np.random.randn(np.prod(batch_shape)).astype(np.float32)  # Start with random noise
 
     total_losses = []
     content_losses = []
