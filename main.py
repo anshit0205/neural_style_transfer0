@@ -64,12 +64,14 @@ def minimize_with_lbfgs(fn, epochs, batch_shape):
     plt.subplot(1, 3, 3)
     plt.plot(tv_losses, label='Total Variation Loss')
     plt.legend()
-    plt.show()
+    plt.savefig('losses.png')  # Save the plot as a PNG file
+    plt.close()
 
     plt.figure(figsize=(7, 5))
     plt.plot(total_losses, label='Total Loss')
     plt.legend()
-    plt.show()
+    plt.savefig('total_loss.png')  # Save the plot as a PNG file
+    plt.close()
 
     newimg = x.reshape(*batch_shape)
     final_img = unpreprocess(newimg)
@@ -86,12 +88,14 @@ def display_images(content_img_np, style_img_np, final_img_np):
     plt.imshow(scale_img(style_img_np))
     plt.title('Style Image')
 
-    plt.show()
+    plt.savefig('content_and_style_images.png')  # Save the plot as a PNG file
+    plt.close()
 
     plt.figure(figsize=(10, 8))
     plt.imshow(scale_img(final_img_np))
     plt.title('Result Image')
-    plt.show()
+    plt.savefig('result_image.png')  # Save the plot as a PNG file
+    plt.close()
 
 def display_histograms(content_img_np, style_img_np, final_img_np):
     plt.figure(figsize=(15, 5))
@@ -108,7 +112,8 @@ def display_histograms(content_img_np, style_img_np, final_img_np):
     plt.hist(final_img_np.ravel(), bins=256, color='green', alpha=0.5)
     plt.title('Result Image Histogram')
 
-    plt.show()
+    plt.savefig('histograms.png')  # Save the plot as a PNG file
+    plt.close()
 
 if __name__ == '__main__':
     content_img_path = '/content/neural_style_transfer0/images/content/content_image.png'
