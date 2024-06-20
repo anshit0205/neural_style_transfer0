@@ -1,10 +1,11 @@
-import tensorflow as tf
 import numpy as np
+import tensorflow as tf
 import matplotlib.pyplot as plt
 from scipy.optimize import fmin_l_bfgs_b
 import lpips
 import torch
 import tensorflow_gan as tfgan
+from skimage.metrics import structural_similarity as ssim  # Add this import
 
 from utils import psnr, load_img_and_preprocess, unpreprocess, scale_img, display_images, display_histograms
 from losses import style_loss, total_variation_loss
@@ -35,7 +36,7 @@ def get_loss_and_grads_wrapper(x_vec):
     return total_loss.numpy().astype(np.float64), grads.numpy().flatten().astype(np.float64), content_loss.numpy().astype(np.float64), style_loss.numpy().astype(np.float64), tv_loss.numpy().astype(np.float64)
 
 def minimize_with_lbfgs(fn, epochs, batch_shape):
-    x = np.random.randn(np.prod(batch_shape)).astype(np.float32) # Start from random noise
+    x = np.random.randn(np.prod(batch_shape)).astype(np.float32) # Start from the content image instead of random noise
 
     total_losses = []
     content_losses = []
@@ -78,8 +79,8 @@ def minimize_with_lbfgs(fn, epochs, batch_shape):
     return final_img
 
 if __name__ == '__main__':
-    content_img_path = 'images/content/content_image.png'
-    style_img_path = 'images/style/style_image.png'
+    content_img_path = 'path_to_content_image.png'
+    style_img_path = 'path_to_style_image.png'
 
     content_img = load_img_and_preprocess(content_img_path)
     h, w = content_img.shape[1:3]
