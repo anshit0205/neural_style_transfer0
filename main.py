@@ -38,7 +38,11 @@ if __name__ == '__main__':
     style_model = tf.keras.Model(vgg.input, style_layers)
     style_layers_outputs = [tf.constant(output) for output in style_model.predict(style_img)]
 
-    final_img = minimize_with_lbfgs(get_loss_and_grads_wrapper, 11, batch_shape)
+    final_img = minimize_with_lbfgs(
+    lambda x: get_loss_and_grads_wrapper(x, batch_shape, content_model, style_model, content_target, style_layers_outputs),
+    11,
+    batch_shape
+    )
 
     content_img_np = unpreprocess(content_img[0])
     style_img_np = unpreprocess(style_img[0])
