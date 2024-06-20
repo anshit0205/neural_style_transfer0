@@ -1,7 +1,7 @@
 tensorflow==2.16.1
 tensorflow-gan
 tensorflow-addons
-keras
+
 numpy
 matplotlib
 scikit-image
