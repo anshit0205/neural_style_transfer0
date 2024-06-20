@@ -114,8 +114,8 @@ def display_histograms(content_img_np, style_img_np, final_img_np):
     plt.show()
 
 if __name__ == '__main__':
-    content_img_path = 'path_to_content_image.png'
-    style_img_path = 'path_to_style_image.png'
+    content_img_path = 'images/content/content_image.png'
+    style_img_path = 'images/style/style_image.png'
 
     content_img = load_img_and_preprocess(content_img_path)
     h, w = content_img.shape[1:3]
