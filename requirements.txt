@@ -1,11 +1,9 @@
-tensorflow==2.16.1
-tensorflow-gan
-tensorflow-addons
-
+tensorflow==2.15.0
+tensorflow-gan==2.1.0
+tensorflow-addons==0.22.0
 numpy
 matplotlib
 scikit-image
 lpips
-torch
-
+torch==2.1.0
 
