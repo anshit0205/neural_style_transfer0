@@ -36,7 +36,7 @@ def get_loss_and_grads_wrapper(x_vec):
     return total_loss.numpy().astype(np.float64), grads.numpy().flatten().astype(np.float64), content_loss.numpy().astype(np.float64), style_loss.numpy().astype(np.float64), tv_loss.numpy().astype(np.float64)
 
 def minimize_with_lbfgs(fn, epochs, batch_shape):
-    x = np.random.randn(np.prod(batch_shape)).astype(np.float32) # Start from the content image instead of random noise
+    x = np.random.randn(np.prod(batch_shape)).astype(np.float32)
 
     total_losses = []
     content_losses = []
@@ -53,20 +53,17 @@ def minimize_with_lbfgs(fn, epochs, batch_shape):
         style_losses.append(style_loss)
         tv_losses.append(tv_loss)
 
+    # Plotting the losses
     plt.figure(figsize=(15, 5))
-
     plt.subplot(1, 3, 1)
     plt.plot(content_losses, label='Content Loss')
     plt.legend()
-
     plt.subplot(1, 3, 2)
     plt.plot(style_losses, label='Style Loss')
     plt.legend()
-
     plt.subplot(1, 3, 3)
     plt.plot(tv_losses, label='Total Variation Loss')
     plt.legend()
-
     plt.show()
 
     plt.figure(figsize=(7, 5))
@@ -114,8 +111,8 @@ def display_histograms(content_img_np, style_img_np, final_img_np):
     plt.show()
 
 if __name__ == '__main__':
-    content_img_path = 'images/content/content_image.png'
-    style_img_path = 'images/style/style_image.png'
+    content_img_path = 'path_to_content_image.png'
+    style_img_path = 'path_to_style_image.png'
 
     content_img = load_img_and_preprocess(content_img_path)
     h, w = content_img.shape[1:3]
