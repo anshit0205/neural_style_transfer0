@@ -5,9 +5,9 @@ from scipy.optimize import fmin_l_bfgs_b
 import lpips
 import torch
 import tensorflow_gan as tfgan
-from skimage.metrics import structural_similarity as ssim  # Add this import
+from skimage.metrics import structural_similarity as ssim
 
-from utils import psnr, load_img_and_preprocess, unpreprocess, scale_img, display_images, display_histograms
+from utils import psnr, load_img_and_preprocess, unpreprocess, scale_img
 from losses import style_loss, total_variation_loss
 from models import VGG16_Avgpool, get_content_model, get_style_model
 
@@ -78,9 +78,44 @@ def minimize_with_lbfgs(fn, epochs, batch_shape):
     final_img = unpreprocess(newimg)
     return final_img
 
+def display_images(content_img_np, style_img_np, final_img_np):
+    plt.figure(figsize=(15, 5))
+
+    plt.subplot(1, 2, 1)
+    plt.imshow(scale_img(content_img_np))
+    plt.title('Content Image')
+
+    plt.subplot(1, 2, 2)
+    plt.imshow(scale_img(style_img_np))
+    plt.title('Style Image')
+
+    plt.show()
+
+    plt.figure(figsize=(10, 8))
+    plt.imshow(scale_img(final_img_np))
+    plt.title('Result Image')
+    plt.show()
+
+def display_histograms(content_img_np, style_img_np, final_img_np):
+    plt.figure(figsize=(15, 5))
+
+    plt.subplot(1, 3, 1)
+    plt.hist(content_img_np.ravel(), bins=256, color='red', alpha=0.5)
+    plt.title('Content Image Histogram')
+
+    plt.subplot(1, 3, 2)
+    plt.hist(style_img_np.ravel(), bins=256, color='blue', alpha=0.5)
+    plt.title('Style Image Histogram')
+
+    plt.subplot(1, 3, 3)
+    plt.hist(final_img_np.ravel(), bins=256, color='green', alpha=0.5)
+    plt.title('Result Image Histogram')
+
+    plt.show()
+
 if __name__ == '__main__':
-    content_img_path = 'images/content/content_image.png'
-    style_img_path = 'images/style/style_image.png'
+    content_img_path = 'path_to_content_image.png'
+    style_img_path = 'path_to_style_image.png'
 
     content_img = load_img_and_preprocess(content_img_path)
     h, w = content_img.shape[1:3]
