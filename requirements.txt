@@ -1,5 +1,5 @@
-tensorflow
-tensorflow-gpu
+tensorflow==2.16.1
+tensorflow-gpu==2.16.1; python_version > "3.7"
 tensorflow-gan
 tensorflow-addons
 keras
@@ -8,3 +8,4 @@ matplotlib
 scikit-image
 lpips
 torch
+
