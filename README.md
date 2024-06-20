@@ -1,64 +1,98 @@
-# Neural Style Transfer
+# Neural Style Transfer on Google Colab
 
 ## Project Overview
 
-This project demonstrates the implementation of a Neural Style Transfer algorithm using TensorFlow and Keras. The technique involves blending two images: a content image (which contains the structure and details) and a style image (which contains the artistic style and texture). The goal is to generate a new image that preserves the content of the first image while adopting the artistic style of the second image. Additionally, the project includes various metrics such as SSIM, PSNR, LPIPS, and KID to evaluate the quality and similarity of the generated images compared to the original ones. Although, the primary metric remains our visual pleasure. If our eyes like the combination, it doesnt matter what other metrics speak. 
+This project demonstrates the implementation of a Neural Style Transfer algorithm using TensorFlow and Keras. The technique involves blending two images: a content image (which contains the structure and details) and a style image (which contains the artistic style and texture). The goal is to generate a new image that preserves the content of the first image while adopting the artistic style of the second image. Additionally, the project includes various metrics such as SSIM, PSNR, LPIPS, and KID to evaluate the quality and similarity of the generated images compared to the original ones. Although the primary metric remains our visual pleasure—if our eyes like the combination, it doesn't matter what other metrics indicate.
 
-## Installation Instructions
+## Using Google Colab
 
-### Prerequisites
+Google Colab is a free platform that provides GPU support, making it an excellent choice for running computationally intensive tasks like Neural Style Transfer. Follow these steps to run the project on Google Colab:
 
-Ensure you have Python 3.7 or higher installed on your machine. It is recommended to use a virtual environment to manage dependencies.
+### Steps
 
-### Setup
+1. **Open Google Colab:**
 
-1. **Clone the repository:**
+    Navigate to [Google Colab](https://colab.research.google.com) in your browser.
 
-    Open your terminal (or Command Prompt on Windows) and run the following commands:
-    ```sh
-    git clone https://github.com/anshit0205/neural_style_transfer0.git
-    cd neural_style_transfer0
+2. **Create a New Notebook:**
+
+    Click on `File > New Notebook` to create a new notebook.
+
+3. **Clone the Repository:**
+
+    In the first cell of your notebook, run the following code to clone the repository and navigate into the project directory:
+
+    ```python
+    !git clone https://github.com/anshit0205/neural_style_transfer0.git
+    %cd neural_style_transfer0
     ```
 
-    Here, `git clone` downloads the project to your local machine, and `cd neural_style_transfer0` navigates into the project directory.
+4. **Install the Required Libraries:**
 
-2. **Create and activate a virtual environment:**
+    In the next cell, install the necessary libraries by running:
 
-    Run the following commands:
-    ```sh
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```python
+    !pip install -r requirements.txt
     ```
 
-    This creates a virtual environment named `venv` and activates it. Virtual environments help in managing dependencies for different projects separately.
+5. **Upload Your Images:**
 
-3. **Install the required libraries:**
+    You can use the following code to upload your content and style images directly to the appropriate directories:
 
-    With the virtual environment activated, run:
-    ```sh
-    pip install -r requirements.txt
+    ```python
+    from google.colab import files
+    import os
+
+    # Create necessary directories
+    os.makedirs('images/content', exist_ok=True)
+    os.makedirs('images/style', exist_ok=True)
+
+    # Upload content image
+    print("Upload your content image")
+    content_image = files.upload()
+    for filename in content_image.keys():
+        os.rename(filename, f'images/content/{filename}')
+
+    # Upload style image
+    print("Upload your style image")
+    style_image = files.upload()
+    for filename in style_image.keys():
+        os.rename(filename, f'images/style/{filename}')
     ```
 
-    This installs all the necessary libraries specified in the `requirements.txt` file.
+    Run the above code cells and upload your content and style images when prompted.
 
-4. **Place your content and style images in the appropriate directories:**
+6. **Run the Style Transfer Script:**
 
-    Ensure your images are organized as follows:
-    ```
-    neural_style_transfer0/
-    └── images/
-        ├── content/
-        │   └── content_image.png
-        └── style/
-            └── style_image.png
+    In the next cell, run the main script to perform style transfer:
+
+    ```python
+    !python main.py
     ```
 
-    Replace `content_image.png` and `style_image.png` with your actual image files you may want to use.
-   
-## Usage
+    The script will save the generated images and loss plots as PNG files in the working directory.
 
-Run the `main.py` script to perform style transfer. By default, it uses `images/content/content_image.png` and `images/style/style_image.png` as the input images.
+7. **View the Results:**
 
-To run the script, execute:
-```sh
-python main.py
+    You can view the saved images directly in Colab using the following code:
+
+    ```python
+    from IPython.display import Image, display
+
+    # Display the content and style images
+    display(Image(filename='content_and_style_images.png'))
+
+    # Display the result image
+    display(Image(filename='result_image.png'))
+
+    # Display the loss plots
+    display(Image(filename='losses.png'))
+    display(Image(filename='total_loss.png'))
+    display(Image(filename='histograms.png'))
+    ```
+
+    Run the above code cells to display the images and plots.
+
+---
+
+Feel free to contribute to this project by submitting issues or pull requests. Enjoy creating beautiful artworks with Neural Style Transfer!
