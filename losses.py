@@ -1,5 +1,6 @@
 import numpy as np
 import tensorflow as tf
+from scipy.optimize import fmin_l_bfgs_b
 
 def gram_matrix(img):
     img = tf.squeeze(img, axis=0)  # Remove the batch dimension
