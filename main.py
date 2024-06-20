@@ -27,7 +27,7 @@ if __name__ == '__main__':
         'block3_conv3',
         'block4_conv1',
         'block5_conv2'
-    ]
+    ] # we can experiment with the layers
 
     vgg = VGG16_Avgpool(shape)
     content_layer = vgg.get_layer(content_layer_name).output
